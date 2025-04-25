@@ -268,7 +268,9 @@
  mdp:/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h
  mdp:/usr/include/x86_64-linux-gnu/gnu/stubs-64.h
  mdp:/usr/include/x86_64-linux-gnu/gnu/stubs.h
- mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/QVector
+ mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/QCryptographicHash
+ mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/QDebug
+ mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/QMap
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qalgorithms.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qanystringview.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qarraydata.h
@@ -291,6 +293,7 @@
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qcontainerinfo.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qcontainertools_impl.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qcontiguouscache.h
+ mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qcryptographichash.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qdatastream.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qdebug.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qflags.h
@@ -347,7 +350,6 @@
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qutf8stringview.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qvariant.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qvarlengtharray.h
- mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qvector.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/qversiontagging.h
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtNetwork/QTcpServer
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtNetwork/QTcpSocket
