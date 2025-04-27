@@ -15,61 +15,104 @@ void server::incomingConnection(qintptr socketDescriptor)
 {
     QTcpSocket *clientSocket = new QTcpSocket;
     clientSocket->setSocketDescriptor(socketDescriptor);
+
     connect(clientSocket, &QTcpSocket::readyRead, this, &server::slotReadyRead);
-    connect(clientSocket, &QTcpSocket::disconnected, clientSocket, &QTcpSocket::deleteLater);
+    connect(clientSocket, &QTcpSocket::disconnected, this, [=]() {
+        clients.removeAll(clientSocket);
+        authorizedClients.remove(clientSocket);
+        clientBlockSizes.remove(clientSocket);
+        clientSocket->deleteLater();
+        qDebug() << "Клиент отключён:" << socketDescriptor;
+    });
+
+    clients.append(clientSocket);
+    clientBlockSizes[clientSocket] = 0;
     qDebug() << "Клиент подключен:" << socketDescriptor;
 }
 
 void server::slotReadyRead()
 {
     QTcpSocket *clientSocket = qobject_cast<QTcpSocket *>(sender());
+    if (!clientSocket) return;
+
     QDataStream in(clientSocket);
     in.setVersion(QDataStream::Qt_6_4);
 
-    QString receivedData;
-    in >> receivedData;
+    while (true) {
+        if (clientBlockSizes[clientSocket] == 0) {
+            if (clientSocket->bytesAvailable() < sizeof(quint16)) break;
+            in >> clientBlockSizes[clientSocket];
+        }
 
-    qDebug() << "Получены данные от клиента:" << receivedData;
+        if (clientSocket->bytesAvailable() < clientBlockSizes[clientSocket]) break;
 
-    // Разделяем полученные данные на логин и хэш пароля
-    QStringList parts = receivedData.split(":");
-    if (parts.size() != 2) {
-        qDebug() << "Некорректный формат данных";
-        sendToClient(clientSocket, "ERROR: Некорректный формат данных");
-        return;
-    }
+        QString receivedData;
+        in >> receivedData;
+        clientBlockSizes[clientSocket] = 0;
 
-    QString login = parts[0];
-    QString passwordHash = parts[1];
+        qDebug() << "Получены данные от клиента:" << receivedData;
 
-    // Проверяем логин и хэш пароля
-    if (validateCredentials(login, passwordHash)) {
-        qDebug() << "Авторизация успешна для пользователя:" << login;
-        sendToClient(clientSocket, "SUCCESS");
-    } else {
-        qDebug() << "Неверный логин или пароль для пользователя:" << login;
-        sendToClient(clientSocket, "ERROR: Неверный логин или пароль");
+        if (!authorizedClients.contains(clientSocket)) {
+            // Обработка авторизации
+            if (receivedData.contains(":")) {
+                QStringList parts = receivedData.split(":");
+                if (parts.size() == 2) {
+                    if (validateCredentials(parts[0], parts[1])) {
+                        authorizedClients[clientSocket] = parts[0];
+                        sendToClient(clientSocket, "SUCCESS");
+                        qDebug() << "Клиент авторизован:" << parts[0];
+                    } else {
+                        sendToClient(clientSocket, "ERROR: Неверный логин или пароль");
+                    }
+                } else {
+                    sendToClient(clientSocket, "ERROR: Некорректный формат данных");
+                }
+            }
+        } else {
+            // Обработка сообщений чата
+            QString senderName = authorizedClients[clientSocket];
+            QString message = senderName + ": " + receivedData;
+
+            for (QTcpSocket *client : clients) {
+                if (client != clientSocket && client->state() == QAbstractSocket::ConnectedState) {
+                    sendToClient(client, message);
+                }
+            }
+        }
     }
 }
 
 bool server::validateCredentials(const QString &login, const QString &passwordHash)
 {
-    // Здесь можно добавить базу данных или жестко заданные логины/пароли
-    QMap<QString, QString> usersDatabase; // Логин -> Хэш пароля
-    usersDatabase["user1"] = QByteArray::fromHex("5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8").toHex(); // Пароль: "password"
-    usersDatabase["1"] = QByteArray::fromHex("6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b").toHex(); // Пароль: "1"
+    QMap<QString, QString> usersDatabase;
+    usersDatabase["1"] = "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"; // Пароль: "1"
+    usersDatabase["2"] = "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"; // Пароль: "2"
 
-    if (usersDatabase.contains(login) && usersDatabase[login] == passwordHash) {
-        return true;
-    }
-    return false;
+    return usersDatabase.value(login) == passwordHash;
 }
 
 void server::sendToClient(QTcpSocket *socket, const QString &message)
 {
-    QByteArray data;
-    QDataStream out(&data, QIODevice::WriteOnly);
+    if (!socket || socket->state() != QAbstractSocket::ConnectedState) {
+        qDebug() << "Попытка отправки на отключенный сокет";
+        return;
+    }
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_4);
+
+    out << quint16(0);
     out << message;
-    socket->write(data);
+    out.device()->seek(0);
+    out << quint16(block.size() - sizeof(quint16));
+
+    qDebug() << "Отправка сообщения:" << message << "Размер:" << block.size();
+
+    if (socket->write(block) == -1) {
+        qDebug() << "Ошибка записи в сокет:" << socket->errorString();
+    }
+    if (!socket->waitForBytesWritten(1000)) {
+        qDebug() << "Таймаут отправки данных";
+    }
 }
