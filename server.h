@@ -7,7 +7,6 @@
 #include <QList>
 #include <QCryptographicHash>
 #include <QDebug>
-
 class server : public QTcpServer
 {
     Q_OBJECT

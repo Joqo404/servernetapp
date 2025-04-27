@@ -1,6 +1,5 @@
 #include "server.h"
-#include <QCryptographicHash>
-#include <QDebug>
+
 
 server::server()
 {
@@ -84,6 +83,7 @@ void server::slotReadyRead()
 
 bool server::validateCredentials(const QString &login, const QString &passwordHash)
 {
+    //добавить базу данных
     QMap<QString, QString> usersDatabase;
     usersDatabase["1"] = "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"; // Пароль: "1"
     usersDatabase["2"] = "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"; // Пароль: "2"
