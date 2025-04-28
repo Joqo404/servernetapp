@@ -1,36 +1,28 @@
-#ifndef SERVER_H
-#define SERVER_H
-
-#include <QTcpSocket>
 #include <QTcpServer>
+#include <QTcpSocket>
 #include <QMap>
-#include <QList>
-#include <QCryptographicHash>
-#include <QDebug>
+#include <QUdpSocket>
+
 class server : public QTcpServer
 {
     Q_OBJECT
-
 public:
     server();
 
-protected:
-    void incomingConnection(qintptr socketDescriptor) override; // Обработка нового подключения
-
 private slots:
-    void slotReadyRead(); // Слот для обработки входящих данных
+    void slotReadyRead();
+    void processPendingDatagrams();
+
+protected:
+    void incomingConnection(qintptr socketDescriptor) override;
 
 private:
-    QByteArray data;
-
-    QList<QTcpSocket*> clients; // Список всех подключённых клиентов
-    QMap<QTcpSocket*, QString> authorizedClients; // Сопоставление сокета с логином
-
-    QMap<QString, QString> usersDatabase; // База данных пользователей (логин -> хэш пароля)
-
-    bool validateCredentials(const QString &login, const QString &passwordHash); // Проверка логина и хэша пароля
-    void sendToClient(QTcpSocket *socket, const QString &message); // Отправка сообщения клиенту
+    QList<QTcpSocket*> clients;
+    QMap<QTcpSocket*, QString> authorizedClients;
     QMap<QTcpSocket*, quint16> clientBlockSizes;
-};
 
-#endif // SERVER_H
+    QUdpSocket *udpSocket;
+
+    bool validateCredentials(const QString &login, const QString &passwordHash);
+    void sendToClient(QTcpSocket *socket, const QString &message);
+};

@@ -2,8 +2,8 @@ CMakeFiles/servernetapp.dir/server.cpp.o: \
  /home/egor/programming/diploma/servernetapp/servernetapp/server.cpp \
  /usr/include/stdc-predef.h \
  /home/egor/programming/diploma/servernetapp/servernetapp/server.h \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QTcpSocket \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtcpsocket.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QTcpServer \
+ /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtcpserver.h \
  /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtnetworkglobal.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qglobal.h \
  /usr/include/c++/13/type_traits \
@@ -136,9 +136,6 @@ CMakeFiles/servernetapp.dir/server.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qforeach.h \
  /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtnetwork-config.h \
  /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtnetworkexports.h \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qabstractsocket.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevice.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevicebase.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qobject.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qobjectdefs.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qnamespace.h \
@@ -273,6 +270,7 @@ CMakeFiles/servernetapp.dir/server.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qcompare.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qscopeguard.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qdatastream.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevicebase.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qiterable.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qmetacontainer.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qcontainerinfo.h \
@@ -286,6 +284,8 @@ CMakeFiles/servernetapp.dir/server.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qbindingstorage.h \
  /usr/include/c++/13/chrono /usr/include/c++/13/bits/chrono.h \
  /usr/include/c++/13/ratio /usr/include/c++/13/ctime \
+ /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qabstractsocket.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevice.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qdebug.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qtextstream.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringconverter_base.h \
@@ -307,14 +307,10 @@ CMakeFiles/servernetapp.dir/server.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qvarlengtharray.h \
  /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qhostaddress.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QTcpSocket \
+ /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtcpsocket.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qvariant.h \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QTcpServer \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtcpserver.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QMap \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qmap.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qlist.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QCryptographicHash \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcryptographichash.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QDebug \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qdebug.h
+ /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QUdpSocket \
+ /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qudpsocket.h

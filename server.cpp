@@ -1,12 +1,20 @@
 #include "server.h"
-
+#include <QUdpSocket>
 
 server::server()
 {
     if (this->listen(QHostAddress::LocalHost, 5555)) {
-        qDebug() << "Сервер запущен";
+        qDebug() << "Сервер TCP запущен";
     } else {
-        qDebug() << "Ошибка запуска сервера";
+        qDebug() << "Ошибка запуска TCP сервера";
+    }
+
+    udpSocket = new QUdpSocket(this);
+    if (!udpSocket->bind(QHostAddress::LocalHost, 5556)) {
+        qDebug() << "Ошибка запуска UDP сокета";
+    } else {
+        qDebug() << "Сервер UDP запущен";
+        connect(udpSocket, &QUdpSocket::readyRead, this, &server::processPendingDatagrams);
     }
 }
 
@@ -52,7 +60,6 @@ void server::slotReadyRead()
         qDebug() << "Получены данные от клиента:" << receivedData;
 
         if (!authorizedClients.contains(clientSocket)) {
-            // Обработка авторизации
             if (receivedData.contains(":")) {
                 QStringList parts = receivedData.split(":");
                 if (parts.size() == 2) {
@@ -68,7 +75,6 @@ void server::slotReadyRead()
                 }
             }
         } else {
-            // Обработка сообщений чата
             QString senderName = authorizedClients[clientSocket];
             QString message = senderName + ": " + receivedData;
 
@@ -83,10 +89,9 @@ void server::slotReadyRead()
 
 bool server::validateCredentials(const QString &login, const QString &passwordHash)
 {
-    //добавить базу данных
     QMap<QString, QString> usersDatabase;
-    usersDatabase["1"] = "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"; // Пароль: "1"
-    usersDatabase["2"] = "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"; // Пароль: "2"
+    usersDatabase["1"] = "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"; // "1"
+    usersDatabase["2"] = "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"; // "2"
 
     return usersDatabase.value(login) == passwordHash;
 }
@@ -107,12 +112,25 @@ void server::sendToClient(QTcpSocket *socket, const QString &message)
     out.device()->seek(0);
     out << quint16(block.size() - sizeof(quint16));
 
-    qDebug() << "Отправка сообщения:" << message << "Размер:" << block.size();
+    socket->write(block);
+    socket->waitForBytesWritten(1000);
+}
 
-    if (socket->write(block) == -1) {
-        qDebug() << "Ошибка записи в сокет:" << socket->errorString();
-    }
-    if (!socket->waitForBytesWritten(1000)) {
-        qDebug() << "Таймаут отправки данных";
+void server::processPendingDatagrams()
+{
+    while (udpSocket->hasPendingDatagrams()) {
+        QByteArray datagram;
+        datagram.resize(int(udpSocket->pendingDatagramSize()));
+        QHostAddress sender;
+        quint16 senderPort;
+
+        udpSocket->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
+
+        // Пересылаем всем, кроме отправителя
+        for (QTcpSocket *client : clients) {
+            if (client->state() == QAbstractSocket::ConnectedState) {
+                udpSocket->writeDatagram(datagram, QHostAddress::LocalHost, 5557);
+            }
+        }
     }
 }

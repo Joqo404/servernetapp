@@ -306,22 +306,18 @@ CMakeFiles/servernetapp.dir/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreapplication_platform.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreapplication.h \
  /home/egor/programming/diploma/servernetapp/servernetapp/server.h \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QTcpSocket \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtcpsocket.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QTcpServer \
+ /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtcpserver.h \
  /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtnetworkglobal.h \
  /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtnetwork-config.h \
  /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtnetworkexports.h \
  /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qabstractsocket.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevice.h \
  /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qhostaddress.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QTcpSocket \
+ /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtcpsocket.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qvariant.h \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QTcpServer \
- /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtcpserver.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QMap \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qmap.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qlist.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QCryptographicHash \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcryptographichash.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QDebug \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qdebug.h
+ /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QUdpSocket \
+ /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qudpsocket.h

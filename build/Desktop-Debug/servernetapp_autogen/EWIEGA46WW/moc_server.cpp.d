@@ -263,9 +263,6 @@
   /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
-  /usr/include/x86_64-linux-gnu/qt6/QtCore/QCryptographicHash \
-  /usr/include/x86_64-linux-gnu/qt6/QtCore/QDebug \
-  /usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QMap \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qalgorithms.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qanystringview.h \
@@ -289,7 +286,6 @@
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qcontainerinfo.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qcontainertools_impl.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qcontiguouscache.h \
-  /usr/include/x86_64-linux-gnu/qt6/QtCore/qcryptographichash.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qdatastream.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qdebug.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qflags.h \
@@ -349,6 +345,7 @@
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qversiontagging.h \
   /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QTcpServer \
   /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QTcpSocket \
+  /usr/include/x86_64-linux-gnu/qt6/QtNetwork/QUdpSocket \
   /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qabstractsocket.h \
   /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qhostaddress.h \
   /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtcpserver.h \
@@ -356,6 +353,7 @@
   /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtnetwork-config.h \
   /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtnetworkexports.h \
   /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qtnetworkglobal.h \
+  /usr/include/x86_64-linux-gnu/qt6/QtNetwork/qudpsocket.h \
   /usr/include/x86_64-linux-gnu/sys/cdefs.h \
   /usr/include/x86_64-linux-gnu/sys/syscall.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h \
