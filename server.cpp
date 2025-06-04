@@ -86,7 +86,7 @@ void server::slotReadyRead()
         }
     }
 }
-
+//база данных
 bool server::validateCredentials(const QString &login, const QString &passwordHash)
 {
     QMap<QString, QString> usersDatabase;
@@ -126,10 +126,9 @@ void server::processPendingDatagrams()
 
         udpSocket->readDatagram(datagram.data(), datagram.size(), &sender, &senderPort);
 
-        // Пересылаем всем, кроме отправителя
         for (QTcpSocket *client : clients) {
             if (client->state() == QAbstractSocket::ConnectedState) {
-                udpSocket->writeDatagram(datagram, QHostAddress::LocalHost, 5557);
+                udpSocket->writeDatagram(datagram, sender, 5557);
             }
         }
     }
